@@ -1,0 +1,15 @@
+dependency_overrides:
+  network_proxy_interface: #^1.0.0
+    path: network_proxy_interface
+  network_proxy_android: #^1.0.0
+    path: network_proxy_android
+  network_proxy_ios: #^1.0.0
+    path: network_proxy_ios
+  network_proxy_linux: #^1.0.0
+    path: network_proxy_linux
+  network_proxy_macos: #^1.0.0
+    path: network_proxy_macos
+  network_proxy_windows: #^1.0.0
+    path: network_proxy_windows
+  network_proxy_web: #^1.0.0
+    path: network_proxy_web

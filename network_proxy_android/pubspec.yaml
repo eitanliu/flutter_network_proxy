@@ -15,7 +15,6 @@ dependencies:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
   network_proxy_interface: #^1.0.0
-    path: ../network_proxy_interface
 
 dev_dependencies:
   flutter_test:
