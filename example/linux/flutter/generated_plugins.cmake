@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  network_proxy
+  network_proxy_linux
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

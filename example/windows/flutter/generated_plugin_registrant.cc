@@ -6,7 +6,7 @@
 
 #include "generated_plugin_registrant.h"
 
-#include <network_proxy/network_proxy_plugin_c_api.h>
+#include <network_proxy_windows/network_proxy_plugin_c_api.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   NetworkProxyPluginCApiRegisterWithRegistrar(

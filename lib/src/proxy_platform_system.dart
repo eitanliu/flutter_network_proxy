@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:network_proxy_interface/network_proxy_method_channel.dart';
 import 'package:network_proxy_interface/network_proxy_platform_interface.dart';
+import 'package:network_proxy_linux/network_proxy_linux.dart';
+import 'package:network_proxy_macos/network_proxy_macos.dart';
+import 'package:network_proxy_windows/network_proxy_windows.dart';
 
 import 'proxy_platform.dart';
 
@@ -16,11 +19,11 @@ class ProxyPlatformImpl implements ProxyPlatform {
     // with a non-default instance.
     if (!kIsWeb && NetworkProxyPlatform.instance is MethodChannelNetworkProxy) {
       if (Platform.isLinux) {
-        // NetworkProxyPlatform.instance = NetworkProxyLinux();
+        NetworkProxyPlatform.instance = NetworkProxyLinux();
       } else if (Platform.isMacOS) {
-        // NetworkProxyPlatform.instance = NetworkProxyMacos();
+        NetworkProxyPlatform.instance = NetworkProxyMacos();
       } else if (Platform.isWindows) {
-        // NetworkProxyPlatform.instance = NetworkProxyWindows();
+        NetworkProxyPlatform.instance = NetworkProxyWindows();
       }
     }
   }
