@@ -5,8 +5,7 @@
 import 'dart:html' as html show window;
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-
-import 'network_proxy_platform_interface.dart';
+import 'package:network_proxy_interface/network_proxy_platform_interface.dart';
 
 /// A web implementation of the NetworkProxyPlatform of the NetworkProxy plugin.
 class NetworkProxyWeb extends NetworkProxyPlatform {

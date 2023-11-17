@@ -1,10 +1,11 @@
 name: network_proxy
 description: A new Flutter project.
-version: 0.0.1
+version: 1.0.0
 homepage: https://github.com/eitanliu/network_proxy
+publish_to: https://pub.dartlang.org
 
 environment:
-  sdk: '>=2.17.0 <4.0.0'
+  sdk: '>=2.16.0 <4.0.0'
   flutter: ">=2.10.0"
 
 dependencies:
@@ -13,6 +14,10 @@ dependencies:
   flutter_web_plugins:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
+  network_proxy_interface: #^1.0.0
+    path: network_proxy_interface
+  network_proxy_web: #^1.0.0
+    path: network_proxy_web
 
 dev_dependencies:
   flutter_test:
@@ -48,8 +53,7 @@ flutter:
       windows:
         pluginClass: NetworkProxyPluginCApi
       web:
-        pluginClass: NetworkProxyWeb
-        fileName: network_proxy_web.dart
+        default_package: network_proxy_web
 
   # To add assets to your plugin package, add an assets section, like this:
   # assets:

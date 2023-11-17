@@ -1,0 +1,30 @@
+name: network_proxy_web
+description: A new Flutter project.
+version: 1.0.0
+homepage: https://github.com/eitanliu/network_proxy
+publish_to: https://pub.dartlang.org
+
+environment:
+  sdk: '>=2.16.0 <4.0.0'
+  flutter: ">=2.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+  network_proxy_interface: #^1.0.0
+    path: ../network_proxy_interface
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  plugin:
+    platforms:
+      web:
+        pluginClass: NetworkProxyWeb
+        fileName: network_proxy_web.dart
