@@ -2,6 +2,26 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'network_proxy_method_channel.dart';
 
+enum NetworkProxyType { http, https, socks, auto }
+
+class NetworkProxyConf {
+  final NetworkProxyType type;
+  final bool enable;
+  final String host;
+  final int port;
+  final String? user;
+  final String? password;
+
+  NetworkProxyConf(
+    this.type,
+    this.enable,
+    this.host,
+    this.port, {
+    this.user,
+    this.password,
+  });
+}
+
 abstract class NetworkProxyPlatform extends PlatformInterface {
   /// Constructs a NetworkProxyPlatform.
   NetworkProxyPlatform() : super(token: _token);
@@ -25,5 +45,21 @@ abstract class NetworkProxyPlatform extends PlatformInterface {
 
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<bool> getProxyEnable({NetworkProxyType? type}) {
+    throw UnimplementedError('getProxyEnable() has not been implemented.');
+  }
+
+  Future<bool> setProxyEnable(bool enable, {NetworkProxyType? type}) {
+    throw UnimplementedError('setProxyEnable() has not been implemented.');
+  }
+
+  Future<List<NetworkProxyConf>> getProxy({NetworkProxyType? type}) {
+    throw UnimplementedError('getProxy() has not been implemented.');
+  }
+
+  Future<bool> setProxy(NetworkProxyConf conf) {
+    throw UnimplementedError('setProxy() has not been implemented.');
   }
 }

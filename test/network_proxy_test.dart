@@ -9,6 +9,26 @@ class MockNetworkProxyPlatform
     implements NetworkProxyPlatform {
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<bool> getProxyEnable({NetworkProxyType? type}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> setProxyEnable(bool enable, {NetworkProxyType? type}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<NetworkProxyConf>> getProxy({NetworkProxyType? type}) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> setProxy(NetworkProxyConf conf) {
+    throw UnimplementedError();
+  }
 }
 
 void main() {

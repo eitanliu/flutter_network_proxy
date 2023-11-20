@@ -13,3 +13,25 @@ For help getting started with Flutter development, view the
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+## Mac
+
+```shell
+# Http
+networksetup -getwebproxy <networkservice>
+networksetup -setwebproxy <networkservice> <domain> <port number> <authenticated> <username> <password>
+networksetup -setwebproxystate <networkservice> <on off>
+# Https
+networksetup -getsecurewebproxy <networkservice>
+networksetup -setsecurewebproxy <networkservice> <domain> <port number> <authenticated> <username> <password>
+networksetup -setsecurewebproxystate <networkservice> <on off>
+# Socket
+networksetup -getsocksfirewallproxy <networkservice>
+networksetup -setsocksfirewallproxy <networkservice> <domain> <port number> <authenticated> <username> <password>
+networksetup -setsocksfirewallproxystate <networkservice> <on off>
+# AutoProxy
+networksetup -getautoproxyurl <networkservice>
+networksetup -setautoproxyurl <networkservice> <url>
+networksetup -setautoproxystate <networkservice> <on off>
+networksetup -getproxyautodiscovery <networkservice>
+networksetup -setproxyautodiscovery <networkservice> <on off>
+```
