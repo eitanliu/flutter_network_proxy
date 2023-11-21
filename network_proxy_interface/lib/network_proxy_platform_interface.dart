@@ -5,21 +5,36 @@ import 'network_proxy_method_channel.dart';
 enum NetworkProxyType { http, https, socks, auto }
 
 class NetworkProxyConf {
-  final NetworkProxyType type;
   final bool enable;
+  final String name;
+  final NetworkProxyType type;
   final String host;
   final int port;
   final String? user;
   final String? password;
 
   NetworkProxyConf(
-    this.type,
     this.enable,
+    this.type,
     this.host,
     this.port, {
+    this.name = '',
     this.user,
     this.password,
   });
+
+  @override
+  String toString() {
+    return {
+      'enable': enable,
+      'name': name,
+      'type': type,
+      'host': host,
+      'port': port,
+      'user': user,
+      'password': password,
+    }.toString();
+  }
 }
 
 abstract class NetworkProxyPlatform extends PlatformInterface {

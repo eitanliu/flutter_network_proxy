@@ -52,10 +52,17 @@ class NetworkProxyMacos extends MethodChannelNetworkProxy {
   }
 
   @override
-  Future<bool> setProxy(NetworkProxyConf conf) {
+  Future<bool> setProxy(NetworkProxyConf conf) async {
     final type = conf.type;
     final enable = conf.enable;
-    return getServiceList().asyncEvery((service) async {
+
+    if (conf.name.isNotEmpty) {
+      final service = conf.name;
+      return await setServiceProxy(service, conf) &&
+          await setServiceProxyEnable(service, enable, type: type);
+    }
+
+    return await getServiceList().asyncEvery((service) async {
       return await setServiceProxy(service, conf) &&
           await setServiceProxyEnable(service, enable, type: type);
     });
@@ -73,43 +80,44 @@ class NetworkProxyMacos extends MethodChannelNetworkProxy {
             ['-getwebproxy', service],
           );
           final maps = getProxyResult(result.stdout.toString());
-          final enable = maps['Enable'] == 'Yes';
+          final enable = maps['Enabled'] == 'Yes';
           final host = maps['Server'] ?? '';
-          final port = int.parse(maps['Port'] ?? '-1');
-          return [NetworkProxyConf(type!, enable, host, port)];
+          final port = int.parse(maps['Port'] ?? '0');
+          return [NetworkProxyConf(enable, type!, host, port, name: service)];
         case NetworkProxyType.https:
           final result = await Process.run(
             '/usr/sbin/networksetup',
             ['-getsecurewebproxy', service],
           );
           final maps = getProxyResult(result.stdout.toString());
-          final enable = maps['Enable'] == 'Yes';
+          final enable = maps['Enabled'] == 'Yes';
           final host = maps['Server'] ?? '';
-          final port = int.parse(maps['Port'] ?? '-1');
-          return [NetworkProxyConf(type!, enable, host, port)];
+          final port = int.parse(maps['Port'] ?? '0');
+          return [NetworkProxyConf(enable, type!, host, port, name: service)];
         case NetworkProxyType.socks:
           final result = await Process.run(
             '/usr/sbin/networksetup',
             ['-getsocksfirewallproxy', service],
           );
           final maps = getProxyResult(result.stdout.toString());
-          final enable = maps['Enable'] == 'Yes';
+          final enable = maps['Enabled'] == 'Yes';
           final host = maps['Server'] ?? '';
-          final port = int.parse(maps['Port'] ?? '-1');
-          return [NetworkProxyConf(type!, enable, host, port)];
+          final port = int.parse(maps['Port'] ?? '0');
+          return [NetworkProxyConf(enable, type!, host, port, name: service)];
         case NetworkProxyType.auto:
           final result = await Process.run(
             '/usr/sbin/networksetup',
             ['-getautoproxyurl', service],
           );
           final maps = getProxyResult(result.stdout.toString());
-          final enable = maps['Enable'] == 'Yes';
-          final host = maps['URL'] ?? '';
-          return [NetworkProxyConf(type!, enable, host, -1)];
+          final enable = maps['Enabled'] == 'Yes';
+          String host = maps['URL'] ?? '';
+          if (host == '(null)') host = '';
+          return [NetworkProxyConf(enable, type!, host, 0, name: service)];
         default:
           final list = List<NetworkProxyConf>.empty(growable: true);
           for (final e in NetworkProxyType.values) {
-            list.addAll(await getProxy(type: e));
+            list.addAll(await getServiceProxy(service, type: e));
           }
           return list;
       }
@@ -120,7 +128,11 @@ class NetworkProxyMacos extends MethodChannelNetworkProxy {
   }
 
   Map<String, String> getProxyResult(String result) {
-    final lines = result.split('\n');
+    final lines = result.split('\n').where(
+      (element) {
+        return element.trim().isNotEmpty && element.contains(':');
+      },
+    );
     final entryList = lines.map((line) {
       final keySplit = line.indexOf(':');
       final key = line.substring(0, keySplit).trim();
@@ -187,7 +199,7 @@ class NetworkProxyMacos extends MethodChannelNetworkProxy {
       case NetworkProxyType.socks:
         final result = await Process.run(
           '/usr/sbin/networksetup',
-          ['-setsocksfirewallproxystate', service, conf.host, '${conf.port}'],
+          ['-setsocksfirewallproxy', service, conf.host, '${conf.port}'],
         );
         return result.exitCode == 0;
       case NetworkProxyType.auto:
@@ -209,7 +221,7 @@ class NetworkProxyMacos extends MethodChannelNetworkProxy {
       ["-listallnetworkservices"],
     );
     final lines = resp.stdout.toString().split("\n");
-    lines.removeWhere((element) => element.contains("*"));
+    lines.removeWhere((element) => element.isEmpty || element.contains("*"));
     return lines;
   }
 }
