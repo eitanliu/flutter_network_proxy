@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             children: [
               Text('Running on: $_platformVersion\n'),
-              DropdownButton(
+              DropdownButton<NetworkProxyType>(
                 value: _type,
                 items: NetworkProxyType.values
                     .map(
