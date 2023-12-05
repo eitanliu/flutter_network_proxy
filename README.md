@@ -35,3 +35,12 @@ networksetup -setautoproxystate <networkservice> <on off>
 networksetup -getproxyautodiscovery <networkservice>
 networksetup -setproxyautodiscovery <networkservice> <on off>
 ```
+## Future
+
+[ ]- Android 
+[ ]- iOS 
+
+## Thanks
+
+[system_network_proxy](https://github.com/liudonghua123/system_network_proxy)  
+[platform_proxy](https://gitlab.com/yamsergey/platform_proxy)  
