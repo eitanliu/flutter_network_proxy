@@ -2,6 +2,7 @@ name: network_proxy_windows
 description: A plugin project that support get and set status of network proxy.
 version: 1.0.0
 homepage: https://github.com/eitanliu/flutter_network_proxy
+repository: https://github.com/eitanliu/flutter_network_proxy
 #publish_to: https://pub.dartlang.org
 
 environment:
