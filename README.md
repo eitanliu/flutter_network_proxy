@@ -1,6 +1,6 @@
 # network_proxy
 
-A new Flutter project.
+A plugin project that support get and set status of network proxy.
 
 ## Getting Started
 
@@ -37,8 +37,8 @@ networksetup -setproxyautodiscovery <networkservice> <on off>
 ```
 ## Future
 
-[ ]- Android 
-[ ]- iOS 
+[ ]- Android  
+[ ]- iOS  
 
 ## Thanks
 
